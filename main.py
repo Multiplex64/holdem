@@ -2,24 +2,28 @@
 import random
 
 card_ranks = [
-    "Ace",
-    "King",
-    "Queen",
-    "Jack",
-    "Ten",
-    "Nine",
-    "Eight",
-    "Seven",
-    "Six",
-    "Five",
-    "Four",
-    "Three",
     "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Jack",
+    "Queen",
+    "King",
+    "Ace",
 ]
 
-card_suits = ["Spades", "Hearts", "Diamonds", "Clubs"]
+card_suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
 
-total_cards = [(x, y) for x in card_ranks for y in card_suits]
+total_cards = {
+    card_ranks[x] + " of " + card_suits[y]: (x, y, card_ranks[x], card_suits[y])
+    for x in range(len(card_ranks))
+    for y in range(len(card_suits))
+}
 print(total_cards)
 
 """
@@ -43,8 +47,9 @@ class game:
         self.players = players
         self.buy_in = buy_in
         self.pot = 0
-        self.deck = total_cards
-        random.shuffle(self.deck)
+        deck = list(total_cards.items())
+        random.shuffle(deck)
+        self.deck = dict(deck)
 
     # add a player object to the game
     def add_player(self, player):
@@ -85,7 +90,6 @@ Shell-based game
 
 def shell_game():
     g = game()
-    print(g.deck)
 
 
 if __name__ == "__main__":
