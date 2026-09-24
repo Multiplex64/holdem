@@ -31,6 +31,7 @@ total_cards = {
 
 global_players = []
 
+
 """
 Clear the Python Terminal
 """
@@ -82,7 +83,7 @@ class game:
     # pre-flop
     def round_preflop(self):
         for p in self.players:
-            p.cards = [self.deck.pop(), self.deck.pop()]
+            p.cards = [self.deck.popitem(), self.deck.popitem()]
 
     # the flop
     def round_flop(self):
@@ -132,6 +133,10 @@ Shell-based game
 
 
 def shell_game():
+
+    def ask_bet():
+        input("F: Fold | M: Match | B: Bet | A: All-In")
+
     players = []
     clear()
     print("\nWelcome to Texas Hold'em.")
@@ -160,13 +165,24 @@ def shell_game():
                     )
                 case "r":
                     pass
+        # start the game
         print("\nStarting Game...")
         print("\nPlayers:")
         for p in players:
             print(p.name)
         input("Press Enter to Begin.\n")
         clear()
-        g = game()
+        g = game(players)
+
+        # preflop
+        g.round_preflop()
+        for p in players:
+            input(p.name + ": Press Enter to See Your Cards.")
+            print("Your Cards:")
+            for card in p.cards:
+                print(card[0])
+            input("Press Enter to Continue.")
+            clear()
 
 
 if __name__ == "__main__":
