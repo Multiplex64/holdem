@@ -1,2 +1,2 @@
 # holdem
-texas holdem
+Texas Holdem in Python
